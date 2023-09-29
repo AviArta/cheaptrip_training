@@ -40,7 +40,8 @@ def search_change_files(directory, first_data, new_data):
 
 
 if __name__ == '__main__':
-    search_change_files('C:/Users/kuvsh/Desktop/Стажировка', 'second', '!NEW!')
+    path = 'jsons/'
+    search_change_files(path, 'four', 'five')
 
 
 # ------- намётки с regex
