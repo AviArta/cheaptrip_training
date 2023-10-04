@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d96d2ec8-1bd4-43ff-9d5d-3128267f0684" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/test.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Стажировка.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Стажировка.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dir_1/test4.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dir_1/test4.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dir_1/test5.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dir_1/test5.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/test2.json" beforeDir="false" afterPath="$PROJECT_DIR$/test2.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test3.json" beforeDir="false" afterPath="$PROJECT_DIR$/test3.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +32,10 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/kuvsh/Desktop/Стажировка/main.py&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.space&quot;
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
   <component name="RunManager">
@@ -64,5 +71,16 @@
       <updated>1695931009883</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

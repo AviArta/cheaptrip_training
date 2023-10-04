@@ -1,6 +1,6 @@
 {
-"first second": "one",
-"second": "second",
+"first": "one",
+"two": "second",
 "third": "three",
 "forth": "second"
 }

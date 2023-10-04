@@ -1,4 +1,5 @@
-{"name": "Anna",
-"age": "38",
-"second": "2"
+{
+    "name": "Anna",
+    "age": 38,
+    "adication": "second"
 }
