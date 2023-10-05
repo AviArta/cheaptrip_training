@@ -1,9 +1,17 @@
 import pathlib
 import json
 
+# бизнес-логика поменялась:
+#     1. поиск файлов должен осуществляться также и в папках, вложенных в directory, сортить файлы не нужно
+#     2. замену строк в словаре нужно делать ТОЛЬКО для ключа "images", 
+#        который хранит данные в виде списка с одним элементом-строкой, т.е.: "images": ["ferry"]
+#        после замены, значения ключа так и должно остаться списком с одним элементом-строкой: "images": ["cherry"]
+# пробег по файлам не должен заканчиваться после первого исключения
+# вместо print надо бы использовать логгирование
+
 def search_change_files(directory, first_data, new_data):
 
-    file_list = sorted(pathlib.Path(directory).glob('*.json'))
+    file_list = sorted(pathlib.Path(directory).glob('*.json')) 
     for entry in file_list:
         print(f'Имя файла: {entry.name}')
 
