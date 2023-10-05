@@ -8,20 +8,21 @@ def search_change_files(directory, first_data, new_data):
     Искомая и заменяющая подстроки передаются в параметрах данной функции.
     Применяется модуль json."""
 
-    try:
-        for entry in os.scandir(directory):
-            if entry.is_file() and entry.name.endswith('.json'):
+    try: # лучше поместить вовнутрь цикла for
+        for entry in os.scandir(directory): # pathlib так и не захотел устанавливаться?
+            if entry.is_file() and entry.name.endswith('.json'): # лучше идти от обратного, т.е. проверять НЕвыполнение условия и, в случае True, переходить к следующему entry припомощи continue
+                                                                 # это уменьшит количество отступов и улучшит читаемость кода
                 print(f'Путь: {entry.path}. Имя файла: {entry.name}')  # нашли каждый файл .json
 
                 # читаем каждый файл:
-                lines = json.load(open(entry.path))
+                lines = json.load(open(entry.path)) # здесь и далее используй контексный менеджер with open() для открытия файла
                 
-                #print('lines:', lines)
-                copy_lines, index_list = {}, []
-                counter = -1
+                #print('lines:', lines)            
+                copy_lines, index_list = {}, []    # не потребуется (см. ниже)
+                counter = -1                       # не потребуется
                 
                 # поиск строк с нужными подстроками:
-                for line in lines:
+                for line in lines: # т.к. lines - это словарь, то ВЕСЬ этот цикл for несложно заменить ОДНОЙ строчкой - используй "dictionary comprehension"
                     counter += 1
                     if first_data in str(lines[line]):
                         print(f'Подстрока "{first_data}" найдена в строке {line}.')
@@ -39,7 +40,7 @@ def search_change_files(directory, first_data, new_data):
                 #print('copy:', copy_lines)
                 
                 # записываем изменённые данные:
-                json.dump(copy_lines, open(entry.path, 'w'), indent=4)
+                json.dump(copy_lines, open(entry.path, 'w'), indent=4) 
 
     except FileNotFoundError:
         print('По указанному пути файл не найден.')
