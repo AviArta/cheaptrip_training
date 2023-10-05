@@ -7,46 +7,33 @@ def search_change_files(directory, first_data, new_data):
     и делает в них замену одной подстроки на другую, перезаписывая файл.
     Искомая и заменяющая подстроки передаются в параметрах данной функции.
     Применяется модуль json."""
-
-    try:
-        for entry in os.scandir(directory):
-            if entry.is_file() and entry.name.endswith('.json'):
-                print(f'Путь: {entry.path}. Имя файла: {entry.name}')  # нашли каждый файл .json
-
-                # читаем каждый файл:
-                lines = json.load(open(entry.path))
+    
+    for entry in os.scandir(directory):
+        try:
+            if not (entry.is_file() and entry.name.endswith('.json')):
+                continue
                 
-                #print('lines:', lines)
-                copy_lines, index_list = {}, []
-                counter = -1
-                
-                # поиск строк с нужными подстроками:
-                for line in lines:
-                    counter += 1
-                    if first_data in str(lines[line]):
-                        print(f'Подстрока "{first_data}" найдена в строке {line}.')
-                        index_list.append(counter)   # список индексов строк, где есть нужная подстрока
-                        copy_lines[line] = lines[line]
-                        
-                        # изменение строк:
-                        new_str = copy_lines[line].replace(first_data, new_data)  # изменённая строка без лишних символов
-                        copy_lines[line] = new_str
+            print(f'Путь: {entry.path}. Имя файла: {entry.name}')  # нашли каждый файл .json
 
-                    else:
-                        copy_lines[line] = lines[line]
+            # читаем каждый файл:
+            with open(entry.path) as input_file:
+                lines = json.load(input_file)
+            
+            # формируем словарь с измененёнными нужными подстроками для перезаписи файла:
+            result_dict = {key:str(value).replace(first_data, new_data)  for (key, value) in lines.items()}
+            #print('result_dict:', result_dict)
+            
+            # записываем изменённые данные:
+            with open(entry.path, 'w') as input_file:
+                json.dump(result_dict, input_file, indent=4)
+            print(f'Изменения в файле {entry.name} сделаны.')
 
-                print(f'Изменения в файле {entry.name} сделаны в {len(index_list)} стр.')
-                #print('copy:', copy_lines)
-                
-                # записываем изменённые данные:
-                json.dump(copy_lines, open(entry.path, 'w'), indent=4)
-
-    except FileNotFoundError:
-        print('По указанному пути файл не найден.')
-    except json.JSONDecodeError:
-        print(f'Файл {entry.name} пустой.')
-    except:
-        print(f'Ошибка при работе с файлом {entry.name}.')
+        except FileNotFoundError:
+            print('По указанному пути файл не найден.')
+        except json.JSONDecodeError:
+            print(f'Файл {entry.name} пустой.')
+        except:
+            print(f'Ошибка при работе с файлом {entry.name}.')
 
 
 if __name__ == '__main__':
