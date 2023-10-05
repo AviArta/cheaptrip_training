@@ -1,5 +1,5 @@
 import os
-import pathlib
+import json
 
 
 def search_change_files(directory, first_data, new_data):
@@ -37,20 +37,4 @@ def search_change_files(directory, first_data, new_data):
 
 
 if __name__ == '__main__':
-    #search_change_files('C:/Users/kuvsh/Desktop/Стажировка/Dir_1', 'second', 'NEW')
-    p = pathlib.Path(__file__)
-    print("Path:", p, 'Имя файла', p.name)
-    print('Parent 1:', p.parent, 'Суффикс файла:', p.suffix)
-    o = pathlib.PurePath('main_json.py')  # проверка, является ли указанный путь абсолютным
-    print('Путь абсолютный?', o.is_absolute())
-    print('Слепленный путь:', p.joinpath('+file'))  # конкатенация строк
-
-    # содержание каталога:
-    p = pathlib.Path('C:/Users/kuvsh/Desktop/Стажировка/Dir_1')
-    for child in p.iterdir():
-        print(child)
-    # возвращает содержимое файла в формате строки:
-    p = pathlib.Path('C:/Users/kuvsh/Desktop/Стажировка/Dir_1/test4.json')
-    print('Строка:', p.read_text())
-    #
-    
+    search_change_files('C:/Users/kuvsh/Desktop/Стажировка/Dir_1', 'second', 'NEW')
