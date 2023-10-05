@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d96d2ec8-1bd4-43ff-9d5d-3128267f0684" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Стажировка.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Стажировка.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dir_1/test4.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dir_1/test4.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Dir_1/test5.json" beforeDir="false" afterPath="$PROJECT_DIR$/Dir_1/test5.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test2.json" beforeDir="false" afterPath="$PROJECT_DIR$/test2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test3.json" beforeDir="false" afterPath="$PROJECT_DIR$/test3.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_json.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_json.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
