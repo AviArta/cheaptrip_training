@@ -2,7 +2,7 @@ import pathlib
 import json
 
 
-def change_files_by_key(directory, key, new_value):  # key = "images"
+def change_files_by_key(directory, key, new_value):
     ''' Функция реализует поиск файлов с расширением .json в указанной папке 
     любой вложенности, выполняет замену значений для ключа "images". Значение должно быть
     в виде списка с одним элементом-строкой. В пареметрах функции передается путь к папке,
@@ -18,21 +18,20 @@ def change_files_by_key(directory, key, new_value):  # key = "images"
             with open(entry, encoding='UTF-8') as input_file:
                 lines = json.load(input_file)
 
-             # формируем словарь с измененёнными нужными подстроками для перезаписи файла:
             for line in lines:
                 if line != key:
                     continue
-                else:
-                    lines[key] = [new_value]
-                    print(f'Изменения в файле {entry.name} сделаны.')
+                lines[key] = [new_value]
+            #print('new lines:', lines)
 
+            # формируем словарь с измененёнными нужными подстроками для перезаписи файла:
             #result_dict = {k: v if k != key else v[0].replace(v[0], new_value) for k, v in lines.items()}
             #print('result_dict:', result_dict)
-            # вариант работает только "images": "cherry", не ["cherry"]
             
             # записываем изменённые данные:
             with open(entry, 'w', encoding='UTF-8') as input_file:
                 json.dump(lines, input_file, indent=4)  # result_dict
+            print(f'Изменения в файле {entry.name} сделаны.')
 
         except FileNotFoundError:
             print('По указанному пути файл не найден.')
@@ -78,4 +77,4 @@ def search_change_files(directory, first_data, new_data):
 
 if __name__ == '__main__':
     #search_change_files('C:/Users/kuvsh/Desktop/Стажировка — копия/Dir_1', 'second', 'NEW')
-    change_files_by_key('C:/Users/kuvsh/Desktop/Стажировка', 'images', 'cherry')
+    change_files_by_key('C:/Users/kuvsh/Desktop/Стажировка — копия', 'images', 'cherry')   
