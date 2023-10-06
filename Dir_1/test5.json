@@ -1,5 +1,8 @@
 {
     "name": "Anna",
     "age": "38",
-    "adication": "NEW"
+    "adication": "NEW",
+    "images": [
+        "ferry"
+    ]
 }

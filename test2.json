@@ -1,6 +1,9 @@
 {
-"first": "one",
-"two": "second",
-"third": "three",
-"forth": "second"
+    "first": "one",
+    "two": "second",
+    "third": "three",
+    "forth": "second",
+    "images": [
+        "ferry"
+    ]
 }

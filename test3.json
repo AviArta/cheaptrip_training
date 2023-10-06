@@ -1,4 +1,8 @@
-{"name": "Anna",
-"age": "38",
-"adication": "second"
+{
+    "name": "Anna",
+    "age": "38",
+    "adication": "second",
+    "images": [
+        "ferry"
+    ]
 }
