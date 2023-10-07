@@ -1,6 +1,9 @@
 import pathlib
 import json
+import logging
 
+logging.basicConfig(level='DEBUG')  # (level='DEBUG', filename='log.log')
+logger = logging.getLogger()
 
 def change_files_by_key(directory, key, new_value):
     ''' Функция реализует поиск файлов с расширением .json в указанной папке 
@@ -11,7 +14,7 @@ def change_files_by_key(directory, key, new_value):
 
     file_list = pathlib.Path(directory).glob('**/*.json')
     for entry in file_list:
-        print(f'Имя файла: {entry.name}')
+        logger.debug(f'Имя файла: {entry.name}')
         
         try:
             # читаем каждый файл:
@@ -22,25 +25,25 @@ def change_files_by_key(directory, key, new_value):
                 if line != key:
                     continue
                 lines[key] = [new_value]
-            #print('new lines:', lines)
+            logger.debug(f'new lines: {lines}')
 
             # формируем словарь с измененёнными нужными подстроками для перезаписи файла:
             #result_dict = {k: v if k != key else v[0].replace(v[0], new_value) for k, v in lines.items()}
-            #print('result_dict:', result_dict)
+            #logger.debug(f'result_dict: {result_dict}')
             
             # записываем изменённые данные:
             with open(entry, 'w', encoding='UTF-8') as input_file:
                 json.dump(lines, input_file, indent=4)  # result_dict
-            print(f'Изменения в файле {entry.name} сделаны.')
+            logger.debug(f'Изменения в файле {entry.name} сделаны.')
 
         except FileNotFoundError:
-            print('По указанному пути файл не найден.')
+            logger.debug('По указанному пути файл не найден.')
             continue
         except json.JSONDecodeError:
-            print(f'Файл {entry.name} пустой.')
+            logger.debug(f'Файл {entry.name} пустой.')
             continue
         except:
-            print(f'Ошибка при работе с файлом {entry.name}.')
+            logger.debug(f'Ошибка при работе с файлом {entry.name}.')
             continue
 
 
@@ -51,7 +54,7 @@ def search_change_files(directory, first_data, new_data):
     Применяется модули pathlib и json."""
     file_list = sorted(pathlib.Path(directory).glob('*.json'))
     for entry in file_list:
-        print(f'Имя файла: {entry.name}')
+        logger.debugt(f'Имя файла: {entry.name}')
 
         try:
             # читаем каждый файл:
@@ -60,21 +63,21 @@ def search_change_files(directory, first_data, new_data):
             
             # формируем словарь с измененёнными нужными подстроками для перезаписи файла:
             result_dict = {key:str(value).replace(first_data, new_data)  for (key, value) in lines.items()}
-            #print('result_dict:', result_dict)
+            #logger.debug(f'result_dict: {result_dict}')
             
             # записываем изменённые данные:
             with open(entry, 'w', encoding='UTF-8') as input_file:
                 json.dump(result_dict, input_file, indent=4)
-            print(f'Изменения в файле {entry.name} сделаны.')
+            logger.debug(f'Изменения в файле {entry.name} сделаны.')
 
         except FileNotFoundError:
-            print('По указанному пути файл не найден.')
+            logger.debug('По указанному пути файл не найден.')
         except json.JSONDecodeError:
-            print(f'Файл {entry.name} пустой.')
+            logger.debug(f'Файл {entry.name} пустой.')
         except:
-            print(f'Ошибка при работе с файлом {entry.name}.')
+            logger.debug(f'Ошибка при работе с файлом {entry.name}.')
 
 
 if __name__ == '__main__':
     #search_change_files('C:/Users/kuvsh/Desktop/Стажировка — копия/Dir_1', 'second', 'NEW')
-    change_files_by_key('C:/Users/kuvsh/Desktop/Стажировка — копия', 'images', 'cherry')   
+    change_files_by_key('C:/Users/kuvsh/Desktop/Стажировка', 'images', 'cherry')   
