@@ -21,15 +21,17 @@ def change_files_by_key(directory, key, new_value):
             with open(entry, encoding='UTF-8') as input_file:
                 lines = json.load(input_file)
 
-            for line in lines:
-                if line != key:
-                    continue
-                lines[key] = [new_value]
-            logger.debug(f'new lines: {lines}')
-
             # формируем словарь с измененёнными нужными подстроками для перезаписи файла:
-            #result_dict = {k: v if k != key else v[0].replace(v[0], new_value) for k, v in lines.items()}
-            #logger.debug(f'result_dict: {result_dict}')
+            for k, v in lines.items():
+                if k != key:
+                    continue
+                if isinstance(lines[k], list): 
+                    # если менять именно значение элемента-строки:
+                    #lines[k][0] = lines[k][0].replace(v[0], new_value)  # new_value == 'cherry'
+                    
+                    # если менять именно подстроку 'f' на подстроку 'ch':
+                    lines[k][0] = lines[k][0].replace('f', new_value)  # new_value == 'ch'
+            logger.debug(f'new lines: {lines}')
             
             # записываем изменённые данные:
             with open(entry, 'w', encoding='UTF-8') as input_file:
@@ -42,9 +44,9 @@ def change_files_by_key(directory, key, new_value):
         except json.JSONDecodeError:
             logger.debug(f'Файл {entry.name} пустой.')
             continue
-        except:
-            logger.debug(f'Ошибка при работе с файлом {entry.name}.')
-            continue
+        #except:
+            #logger.debug(f'Ошибка при работе с файлом {entry.name}.')
+            #continue
 
 
 def search_change_files(directory, first_data, new_data):
@@ -80,4 +82,4 @@ def search_change_files(directory, first_data, new_data):
 
 if __name__ == '__main__':
     #search_change_files('C:/Users/kuvsh/Desktop/Стажировка — копия/Dir_1', 'second', 'NEW')
-    change_files_by_key('C:/Users/kuvsh/Desktop/Стажировка', 'images', 'cherry')   
+    change_files_by_key('C:/Users/kuvsh/Desktop/Стажировка', 'images', 'ch')   
