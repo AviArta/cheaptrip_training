@@ -1,0 +1,14 @@
+ERROR:root:File name: test2.json
+ERROR:root:new lines: {'first': 'one', 'two': 'second', 'third': 'three', 'forth': 'second', 'images': ['cherry']}
+ERROR:root:File test2.json changed.
+ERROR:root:File name: test3.json
+ERROR:root:new lines: {'name': 'Anna', 'age': '38', 'adication': 'second', 'images': ['cherry']}
+ERROR:root:File test3.json changed.
+ERROR:root:File name: test4.json
+ERROR:root:new lines: {'adication': 'NEW'}
+ERROR:root:File test4.json changed.
+ERROR:root:File name: test5.json
+ERROR:root:new lines: {'name': 'Anna', 'age': '38', 'adication': 'NEW', 'images': ['cherry']}
+ERROR:root:File test5.json changed.
+ERROR:root:File name: test_empty.json
+ERROR:root:File test_empty.json is empty.
