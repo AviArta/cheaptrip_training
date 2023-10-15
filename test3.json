@@ -2,7 +2,5 @@
     "name": "Anna",
     "age": "38",
     "adication": "second",
-    "images": [
-        "ferry"
-    ]
+    "images": "ferry"
 }

@@ -1,12 +1,19 @@
 import pathlib
 import json
 import logging
+from datetime import datetime
 
-logging.basicConfig(level='ERROR', filename='logs.log', filemode='a',
-                    format='%(asctime)s %(levelname)s %(message)s')
-logger = logging.getLogger()
 
-def search_change_files(directory: str, first_data: str, new_data: str, key: str='images') -> list:
+logger = logging.getLogger(__name__)
+#logfile_name = f'{__name__}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
+logger.setLevel(logging.ERROR)
+handler = logging.FileHandler(f'{__name__}.log', mode='w')
+formatter = logging.Formatter('%(funcName)s %(asctime)s %(levelname)s %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+
+
+def search_change_files(directory: str, first_data: str, new_data: str, key: str='images'):
 
     ''' The function executes the search of files ".json" on the specified path 
     inside the all tree, modifies substrings of an element by key in the found files.
@@ -23,13 +30,12 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
                 lines = json.load(input_file)
 
             # creating the dictionary with modified substrings by key:
-            for k, v in lines.items():
-                if k != key:
-                    continue
-                if isinstance(lines[k], list): 
-                    # changing substring 'first_data' to substring 'new_data':
-                    lines[k][0] = lines[k][0].replace(first_data, new_data)
-            logger.error(f'new lines: {lines}')
+            if key in lines.keys():
+                if isinstance(lines[key], list):
+                    for element in lines[key]:
+                        lines[key][lines[key].index(element)] = lines[key][lines[key].index(element)].replace(first_data, new_data)
+                if isinstance(lines[key], str):
+                    lines[key] = lines[key].replace(first_data, new_data)
             
             # recording modified data:
             with open(entry, 'w', encoding='UTF-8') as input_file:
@@ -43,11 +49,11 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             logger.error(f'File {entry.name} is empty.')
             continue
         except TypeError:
-            logger.error('Check the data type in the arguments of the function.')
+            logger.critical('Check the data type in the arguments of the function.')
         except:
             logger.error(f'Error working the file {entry.name}.')
             continue
 
 
 if __name__ == '__main__':
-    search_change_files('C:/Users/kuvsh/Desktop/Стажировка — копия', 'f', 'ch')   
+    search_change_files('C:/Users/kuvsh/Desktop/Стажировка', 'f', 'ch') 
