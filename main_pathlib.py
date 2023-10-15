@@ -6,7 +6,7 @@ from datetime import datetime
 
 logger = logging.getLogger(__name__)
 #logfile_name = f'{pathlib.Path(__file__).name}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}.log'
-logger.setLevel(logging.ERROR)
+logger.setLevel(logging.WARNING)
 handler = logging.FileHandler(f'{__name__}.log', mode='w')
 formatter = logging.Formatter('%(funcName)s %(asctime)s %(levelname)s %(message)s')
 handler.setFormatter(formatter)
@@ -22,7 +22,6 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
     file_list = list(pathlib.Path(directory).rglob('*.json'))
     
     for entry in file_list:
-        logger.error(f'File name: {entry.name}')
         
         try:
             # reading each file:
@@ -32,21 +31,20 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             # creating the dictionary with modified substrings by key:
             if key in lines.keys():
                 if isinstance(lines[key], list):
-                    for element in lines[key]:
-                        lines[key][lines[key].index(element)] = lines[key][lines[key].index(element)].replace(first_data, new_data)
+                    lines[key] = [lines[key][lines[key].index(element)].replace(first_data, new_data) for element in lines[key]]
                 if isinstance(lines[key], str):
                     lines[key] = lines[key].replace(first_data, new_data)
             
             # recording modified data:
-            #with open(entry, 'w', encoding='UTF-8') as input_file:
-                #json.dump(lines, input_file, indent=4)  # result_dict
-            #logger.error(f'File {entry.name} changed.')
+            with open(entry, 'w', encoding='UTF-8') as input_file:
+                json.dump(lines, input_file, indent=4)  # result_dict
+                logger.warning(f'File {entry.name} changed.')
 
         except FileNotFoundError:
             logger.error('Files ".json" are not found on the specified path.')
             continue
         except json.JSONDecodeError:
-            logger.error(f'File {entry.name} is empty.')
+            logger.warning(f'File {entry.name} is empty.')
             continue
         except TypeError:
             logger.critical('Check the data type in the arguments of the function.')
