@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 logger = logging.getLogger(__name__)
-#logfile_name = f'{__name__}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
+#logfile_name = f'{pathlib.Path(__file__).name}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}.log'
 logger.setLevel(logging.ERROR)
 handler = logging.FileHandler(f'{__name__}.log', mode='w')
 formatter = logging.Formatter('%(funcName)s %(asctime)s %(levelname)s %(message)s')
@@ -38,9 +38,9 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
                     lines[key] = lines[key].replace(first_data, new_data)
             
             # recording modified data:
-            with open(entry, 'w', encoding='UTF-8') as input_file:
-                json.dump(lines, input_file, indent=4)  # result_dict
-            logger.error(f'File {entry.name} changed.')
+            #with open(entry, 'w', encoding='UTF-8') as input_file:
+                #json.dump(lines, input_file, indent=4)  # result_dict
+            #logger.error(f'File {entry.name} changed.')
 
         except FileNotFoundError:
             logger.error('Files ".json" are not found on the specified path.')
@@ -55,5 +55,5 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             continue
 
 
-if __name__ == '__main__':
-    search_change_files('C:/Users/kuvsh/Desktop/Стажировка', 'f', 'ch') 
+#if __name__ == '__main__':
+search_change_files('C:/Users/kuvsh/Desktop/Стажировка', 'f', 'ch') 
