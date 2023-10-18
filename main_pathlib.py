@@ -48,9 +48,9 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             continue
         except TypeError:
             logger.critical('Check the data type in the arguments of the function.')
-        #except:
-            #logger.error(f'Error working the file {entry.name}.')
-            #continue
+        except:
+            logger.error(f'Error working the file {entry.name}.')
+            continue
 
 
 #if __name__ == '__main__':
