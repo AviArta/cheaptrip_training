@@ -4,6 +4,8 @@
     "adication": "NEW",
     "images": [
         "ferry",
-        "ferry"
+        "ferry",
+        12,
+        [1, 2]
     ]
 }

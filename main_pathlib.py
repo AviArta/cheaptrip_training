@@ -31,7 +31,7 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             # creating the dictionary with modified substrings by key:
             if key in lines.keys():
                 if isinstance(lines[key], list):
-                    lines[key] = [element.replace(first_data, new_data) for element in lines[key] if type(element) == str]
+                    lines[key] = [element if type(element) != str else element.replace(first_data, new_data) for element in lines[key]]
                 elif isinstance(lines[key], str):
                     lines[key] = lines[key].replace(first_data, new_data)
             
@@ -48,9 +48,9 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             continue
         except TypeError:
             logger.critical('Check the data type in the arguments of the function.')
-        except:
-            logger.error(f'Error working the file {entry.name}.')
-            continue
+        #except:
+            #logger.error(f'Error working the file {entry.name}.')
+            #continue
 
 
 #if __name__ == '__main__':
