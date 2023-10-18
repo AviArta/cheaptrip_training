@@ -31,13 +31,13 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             # creating the dictionary with modified substrings by key:
             if key in lines.keys():
                 if isinstance(lines[key], list):
-                    lines[key] = [lines[key][lines[key].index(element)].replace(first_data, new_data) for element in lines[key]]
-                if isinstance(lines[key], str):
+                    lines[key] = [element.replace(first_data, new_data) for element in lines[key] if type(element) == str]
+                elif isinstance(lines[key], str):
                     lines[key] = lines[key].replace(first_data, new_data)
             
             # recording modified data:
             with open(entry, 'w', encoding='UTF-8') as input_file:
-                json.dump(lines, input_file, indent=4)  # result_dict
+                json.dump(lines, input_file, indent=4)
                 logger.warning(f'File {entry.name} changed.')
 
         except FileNotFoundError:
