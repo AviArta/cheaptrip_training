@@ -1,13 +1,13 @@
 import pathlib
 import json
 import logging
-from datetime import datetime
+from datetime import datetime, date
 
 
 logger = logging.getLogger(__name__)
-#logfile_name = f'{pathlib.Path(__file__).name}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}.log'
+logfile_name = f'{pathlib.Path(__file__).name}_{date.today()}_{str(datetime.now().time().strftime("%X")).replace(":", ".")}'
 logger.setLevel(logging.WARNING)
-handler = logging.FileHandler(f'{__name__}.log', mode='w')
+handler = logging.FileHandler(f'{logfile_name}.log', mode='w')
 formatter = logging.Formatter('%(funcName)s %(asctime)s %(levelname)s %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
@@ -29,11 +29,10 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
                 lines = json.load(input_file)
 
             # creating the dictionary with modified substrings by key:
-            if key in lines.keys():
-                if isinstance(lines[key], list):
-                    lines[key] = [element if type(element) != str else element.replace(first_data, new_data) for element in lines[key]]
-                elif isinstance(lines[key], str):
-                    lines[key] = lines[key].replace(first_data, new_data)
+            if isinstance(lines[key], list):
+                lines[key] = [element if type(element) != str else element.replace(first_data, new_data) for element in lines[key]]
+            elif isinstance(lines[key], str):
+                lines[key] = lines[key].replace(first_data, new_data)
             
             # recording modified data:
             with open(entry, 'w', encoding='UTF-8') as input_file:
@@ -45,6 +44,9 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             continue
         except json.JSONDecodeError:
             logger.warning(f'File {entry.name} is empty.')
+            continue
+        except KeyError:
+            logger.warning(f'There is no key "{key}" in the file {entry.name}.')
             continue
         except TypeError:
             logger.critical('Check the data type in the arguments of the function.')
