@@ -22,10 +22,10 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
     It accepts parameters of path, first_data, new_data, key and overwrites files.
        To run code from the command line you need to enter the required parameters:
     '''
-    file_list = list(pathlib.Path(directory).rglob('*.json'))
+    counter_files = len([file for file in list(pathlib.Path(directory).rglob('*.json')) if file.suffix == '.json'])
     counter_change_files = 0
    
-    for one_file in file_list:
+    for one_file in pathlib.Path(directory).rglob('*.json'):
         try:
             # reading each file:
             with open(one_file, encoding='UTF-8') as input_file:
@@ -55,7 +55,7 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             logger.error(f'Error working the file {one_file.name}.')
             continue
         
-    print(f'Всего файлов json: {len(file_list)}', f'Количество изьенённых файлов: {counter_change_files}.', f'Выполнение программы завершено.', sep='\n')
+    print(f'Number of json files: {counter_files}', f'Number of modified files: {counter_change_files}.', f'The program is completed.', sep='\n')
 
 
 if __name__ == '__main__':
