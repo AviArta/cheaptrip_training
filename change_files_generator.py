@@ -38,9 +38,7 @@ def change_list(part_list, first_data, new_data, key):
         except FileNotFoundError:
             logger.error('Files ".json" are not found on the specified path.')
             continue
-        except json.JSONDecodeError:
-            continue
-        except KeyError:
+        except (json.JSONDecodeError, KeyError):
             continue
         except:
             logger.error(f'Error working the file {entry.name}.')
@@ -63,3 +61,8 @@ def my_generator(directory, first_data, new_data, key):
         yield change_list(file_list[cursor:len(file_list)], first_data, new_data, key)
     
     print(f'Всего файлов json: {len(file_list)}', f'Количество изьенённых файлов: {counter}.', f'Выполнение программы завершено.', sep='\n')
+
+
+if __name__ == '__main__':
+    for element in my_generator(args.directory, args.first_data, args.new_data, args.key):
+        element

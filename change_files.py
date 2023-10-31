@@ -24,11 +24,11 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
     '''
     file_list = list(pathlib.Path(directory).rglob('*.json'))
     counter_change_files = 0
-
-    for entry in file_list:
+   
+    for one_file in file_list:
         try:
             # reading each file:
-            with open(entry, encoding='UTF-8') as input_file:
+            with open(one_file, encoding='UTF-8') as input_file:
                 lines = json.load(input_file)
 
             # creating the dictionary with modified substrings by key:
@@ -40,25 +40,24 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
                 counter_change_files += 1
             
             # recording modified data:
-            with open(entry, 'w', encoding='UTF-8') as input_file:
+            with open(one_file, 'w', encoding='UTF-8') as input_file:
                 json.dump(lines, input_file, indent=4)
                 #logger.warning(f'File {entry.name} changed.')
 
         except FileNotFoundError:
             logger.error('Files ".json" are not found on the specified path.')
             continue
-        except json.JSONDecodeError:
-            #logger.warning(f'File {entry.name} is empty.')
-            continue
-        except KeyError:
-            #logger.warning(f'There is no key "{key}" in the file {entry.name}.')
+        except (json.JSONDecodeError, KeyError):
             continue
         except TypeError:
             logger.critical('Check the data type in the arguments of the function.')
         except:
-            logger.error(f'Error working the file {entry.name}.')
+            logger.error(f'Error working the file {one_file.name}.')
             continue
+        
+    print(f'Всего файлов json: {len(file_list)}', f'Количество изьенённых файлов: {counter_change_files}.', f'Выполнение программы завершено.', sep='\n')
 
-    print(f'Количество обработанных файлов: {len(file_list)}')
-    print(f'Успешно изменено файлов: {counter_change_files}, без изменений: {len(file_list) - counter_change_files}')
-    print(f'Выполнение программы завершено.')
+
+if __name__ == '__main__':
+    #search_change_files('C:/Users/kuvsh/Desktop/Стажировка', 'f', 'ch', 'images') 
+    search_change_files(args.directory, args.first_data, args.new_data, args.key)
