@@ -4,7 +4,7 @@ import json
 from my_logging import logger
 from my_parser import args
 
-def search_change_files(directory: str, first_data: str, new_data: str, key: str):  # key: str = 'images'
+def search_change_files(directory: str, first_data: str, new_data: str, key: str='image'):  # key: str = 'images'
     ''' The function executes the search of files ".json" on the specified path 
     inside the all tree, modifies substrings of an element by key in the found files.
     It accepts parameters of path, first_data, new_data, key and overwrites files.
@@ -44,9 +44,10 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
             logger.error(f'Error working the file {one_file.name}.')
             continue
         
-    print(f'Number of json files: {counter_files}', f'Number of modified files: {counter_change_files}.', f'The program is completed.', sep='\n')
+    print(f'Number of json files: {counter_files}.', f'Number of modified files: {counter_change_files}.', f'The program is completed.', sep='\n')
 
 
 if __name__ == '__main__':
     #search_change_files('C:/Users/kuvsh/Desktop/Стажировка', 'f', 'ch', 'images') 
     search_change_files(args.directory, args.first_data, args.new_data, args.key)
+    # input in console line: python change_files.py C:/Users/kuvsh/Desktop/Стажировка f ch -k images

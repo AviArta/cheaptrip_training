@@ -9,5 +9,5 @@ parser = argparse.ArgumentParser(description='The function executes the search o
 parser.add_argument('directory', type=str, help='path to the directory for search json files')
 parser.add_argument('first_data', type=str, help='the substring to be modified in the string')
 parser.add_argument('new_data', type=str, help='the new substring toreplace in the string')
-parser.add_argument('key', default='images', type=str, help='the key whose value needs to be modified')
-args = parser.parse_args()
+parser.add_argument('-k', '--key', default='images', type=str, help='the key whose value needs to be modified')
+args = parser.parse_args()  # default='images'
