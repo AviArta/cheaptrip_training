@@ -1,20 +1,8 @@
 import pathlib
 import json
-import argparse
 
 from my_logging import logger
-
-
-parser = argparse.ArgumentParser(description='The function executes the search of files ' 
-    '.json on the specified path inside the all tree, modifies substrings of an element '
-    'by key in the found files.It accepts parameters of path, first_data, new_data, key '
-    'and overwrites files.To run code from the command line you need to enter the required '
-    'parameters')
-parser.add_argument('directory', type=str, help='path to the directory for search json files')
-parser.add_argument('first_data', type=str, help='the substring to be modified in the string')
-parser.add_argument('new_data', type=str, help='the new substring toreplace in the string')
-parser.add_argument('key', default='images', type=str, help='the key whose value needs to be modified')
-args = parser.parse_args()
+from my_parser import args
 
 def search_change_files(directory: str, first_data: str, new_data: str, key: str):  # key: str = 'images'
     ''' The function executes the search of files ".json" on the specified path 
@@ -29,8 +17,8 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
         try:
             # reading each file:
             with open(one_file, encoding='UTF-8') as input_file:
-                counter_files += 1
                 lines = json.load(input_file)
+                counter_files += 1
 
             # creating the dictionary with modified substrings by key:
             if isinstance(lines[key], list):
