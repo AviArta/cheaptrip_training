@@ -22,13 +22,14 @@ def search_change_files(directory: str, first_data: str, new_data: str, key: str
     It accepts parameters of path, first_data, new_data, key and overwrites files.
        To run code from the command line you need to enter the required parameters:
     '''
-    counter_files = len([file for file in list(pathlib.Path(directory).rglob('*.json')) if file.suffix == '.json'])
+    counter_files = 0 
     counter_change_files = 0
    
     for one_file in pathlib.Path(directory).rglob('*.json'):
         try:
             # reading each file:
             with open(one_file, encoding='UTF-8') as input_file:
+                counter_files += 1
                 lines = json.load(input_file)
 
             # creating the dictionary with modified substrings by key:
