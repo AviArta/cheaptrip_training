@@ -1,8 +1,8 @@
 from datetime import datetime
 
+
 def working_time_decorator(some_function):
     
-
     def new_function(*args, **kwargs):
         start_time = datetime.now()
         result = some_function(*args, **kwargs)
