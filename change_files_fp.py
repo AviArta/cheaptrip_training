@@ -20,9 +20,10 @@ def search_change_files(directory: str, first_substr: str, new_substr: str, key:
         try:
             start_data = read_file(one_file)
             counter_files += 1
-            result_lines = modify_data(start_data, first_substr, new_substr, key)
-            counter_change_files += 1
-            overwrite_file(one_file, result_lines)
+            if start_data[key]:
+                result_lines = modify_data(start_data, first_substr, new_substr, key)
+                overwrite_file(one_file, result_lines)
+                counter_change_files += 1
             
         except (json.JSONDecodeError, KeyError):
             continue
@@ -34,6 +35,7 @@ def search_change_files(directory: str, first_substr: str, new_substr: str, key:
            f'The program is completed.', sep='\n')
 
 
+@working_time_decorator
 def read_file(one_file: str) -> list: 
     ''' The function read file. It accepts parameter of file path and returns list of data
     from file.
@@ -42,20 +44,20 @@ def read_file(one_file: str) -> list:
         return json.load(input_file)
 
 
-def modify_data(start_data: list, first_substr: str, new_substr: str, key: str, counter_change_files: int=0) -> list:
+@working_time_decorator
+def modify_data(start_data: list, first_substr: str, new_substr: str, key: str) -> list:
     ''' The function creats the dictionary with modified value-substrings by key. 
     It accepts parameters: list with start data, first substring, new substring, key for changing value,
     variable for counting modified files. The function returns modify list.
     '''
     if isinstance(start_data[key], list):
         start_data[key] = [element if type(element) != str else element.replace(first_substr, new_substr) for element in start_data[key]]           
-        counter_change_files += 1
     elif isinstance(start_data[key], str):
         start_data[key] = start_data[key].replace(first_substr, new_substr)
-        counter_change_files += 1
     return start_data
 
 
+@working_time_decorator
 def overwrite_file(one_file: str, result_lines: list):
     ''' The function overwrites modified data to the file. It accepts file path and 
     modified list, it doesn't return anything.
