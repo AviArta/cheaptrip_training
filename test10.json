@@ -1,4 +1,7 @@
 {
     "adication": "NEW",
-    "images": ["ferry", 1]
+    "images": [
+        "ferry",
+        1
+    ]
 }

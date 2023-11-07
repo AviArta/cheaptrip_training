@@ -1,12 +1,12 @@
-from datetime import datetime
+from time import perf_counter
 
 
 def working_time_decorator(some_function):
     
     def new_function(*args, **kwargs):
-        start_time = datetime.now()
+        start_time = perf_counter()
         result = some_function(*args, **kwargs)
-        working_time = round((datetime.now() - start_time).total_seconds(), 5)
+        working_time = perf_counter() - start_time
         print(f"Working time of function '{some_function.__name__}' = {working_time} сек.")
         return result
     
