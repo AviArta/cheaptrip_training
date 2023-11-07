@@ -6,7 +6,7 @@ from my_parser import args
 from my_decorators import working_time_decorator
 
 
-@working_time_decorator
+#@working_time_decorator
 def search_change_files(directory: str, first_substr: str, new_substr: str, key: str='images'):  
     ''' The function executes the search of files ".json" on the specified path 
     inside the all tree, modifies substrings of an element by key in the found files.
@@ -21,8 +21,9 @@ def search_change_files(directory: str, first_substr: str, new_substr: str, key:
             start_data = read_file(one_file)
             counter_files += 1
             if start_data[key]:
-                result_lines = modify_data(start_data, first_substr, new_substr, key)
-                overwrite_file(one_file, result_lines)
+                start_value = start_data[key]
+                start_data[key] = modify_data(start_value, first_substr, new_substr, key)
+                overwrite_file(one_file, start_data)
                 counter_change_files += 1
             
         except (json.JSONDecodeError, KeyError):
@@ -45,16 +46,16 @@ def read_file(one_file: str) -> list:
 
 
 @working_time_decorator
-def modify_data(start_data: list, first_substr: str, new_substr: str, key: str) -> list:
+def modify_data(start_value: list or str, first_substr: str, new_substr: str, key: str) -> list:
     ''' The function creats the dictionary with modified value-substrings by key. 
     It accepts parameters: list with start data, first substring, new substring, key for changing value,
     variable for counting modified files. The function returns modify list.
     '''
-    if isinstance(start_data[key], list):
-        start_data[key] = [element if type(element) != str else element.replace(first_substr, new_substr) for element in start_data[key]]           
-    elif isinstance(start_data[key], str):
-        start_data[key] = start_data[key].replace(first_substr, new_substr)
-    return start_data
+    if isinstance(start_value, list):
+        start_value = [element if type(element) != str else element.replace(first_substr, new_substr) for element in start_value]           
+    elif isinstance(start_value, str):
+        start_value = start_value.replace(first_substr, new_substr)
+    return start_value
 
 
 @working_time_decorator
