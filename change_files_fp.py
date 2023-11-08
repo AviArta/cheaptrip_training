@@ -1,3 +1,4 @@
+import asyncio
 import json
 from pathlib import Path
 
@@ -7,7 +8,7 @@ from my_decorators import working_time_decorator
 
 
 #@working_time_decorator
-def search_change_files(directory: str, first_substr: str, new_substr: str, key: str='images'):  
+async def search_change_files(directory: str, first_substr: str, new_substr: str, key: str='images'):  
     ''' The function executes the search of files ".json" on the specified path 
     inside the all tree, modifies substrings of an element by key in the found files.
     It accepts parameters of path, first_data, new_data, key and overwrites files.
@@ -18,12 +19,12 @@ def search_change_files(directory: str, first_substr: str, new_substr: str, key:
    
     for one_file in Path(directory).rglob('*.json'):
         try:
-            start_data = read_file(one_file)
+            start_data = await read_file(one_file)
             counter_files += 1
             if start_data[key]:
                 start_value = start_data[key]
-                start_data[key] = modify_data(start_value, first_substr, new_substr, key)
-                overwrite_file(one_file, start_data)
+                start_data[key] = await modify_data(start_value, first_substr, new_substr, key)
+                await overwrite_file(one_file, start_data)
                 counter_change_files += 1
             
         except (json.JSONDecodeError, KeyError):
@@ -37,7 +38,7 @@ def search_change_files(directory: str, first_substr: str, new_substr: str, key:
 
 
 @working_time_decorator
-def read_file(one_file: str) -> list: 
+async def read_file(one_file: str) -> list: 
     ''' The function read file. It accepts parameter of file path and returns list of data
     from file.
     '''
@@ -46,9 +47,9 @@ def read_file(one_file: str) -> list:
 
 
 @working_time_decorator
-def modify_data(start_value: list or str, first_substr: str, new_substr: str, key: str) -> list:
-    ''' The function creats the dictionary with modified value-substrings by key. 
-    It accepts parameters: list with start data, first substring, new substring, key for changing value,
+async def modify_data(start_value: list or str, first_substr: str, new_substr: str, key: str) -> list:
+    ''' The function creats the modified value-substrings by key. 
+    It accepts parameters: value by key, first substring, new substring, key for changing value,
     variable for counting modified files. The function returns modify list.
     '''
     if isinstance(start_value, list):
@@ -59,7 +60,7 @@ def modify_data(start_value: list or str, first_substr: str, new_substr: str, ke
 
 
 @working_time_decorator
-def overwrite_file(one_file: str, result_lines: list):
+async def overwrite_file(one_file: str, result_lines: list):
     ''' The function overwrites modified data to the file. It accepts file path and 
     modified list, it doesn't return anything.
     '''
@@ -70,7 +71,9 @@ def overwrite_file(one_file: str, result_lines: list):
 
 if __name__ == '__main__': 
     #search_change_files(args.directory, args.first_data, args.new_data, args.key)
-    search_change_files(args.directory, args.first_data, args.new_data, args.key)
+    #search_change_files(args.directory, args.first_data, args.new_data, args.key)
+    
+    asyncio.run(search_change_files(args.directory, args.first_data, args.new_data, args.key))
 
 # input in console line: python change_files_fp.py --help
 # input in console line: python change_files.py C:/Users/kuvsh/Desktop/Стажировка f ch -k images
