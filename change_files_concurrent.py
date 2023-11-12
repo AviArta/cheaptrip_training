@@ -18,10 +18,10 @@ def search_change_files(directory: str, first_substr: str, new_substr: str, key:
     '''
     counter_files = 0 
     counter_change_files = 0
-   
     for one_file in Path(directory).rglob('*.json'):
         try:
-            start_data = read_file(one_file)
+            read_f = Read_File(o_file=one_file)
+            start_data = read_f.read_file(one_file)
             counter_files += 1
             if start_data[key]:
                 start_value = start_data[key]
@@ -40,13 +40,16 @@ def search_change_files(directory: str, first_substr: str, new_substr: str, key:
            f'The program is completed.', sep='\n')
 
 
-#@working_time_decorator
-def read_file(one_file: str) -> list: 
-    ''' The function read file. It accepts parameter of file path and returns list of data
-    from file.
-    '''
-    with open(one_file, encoding='UTF-8') as input_file:
-        return json.load(input_file)
+class Read_File(BaseModel):
+    o_file: Path
+
+    #@working_time_decorator
+    def read_file(self, one_file: str) -> list: 
+        ''' The function read file. It accepts parameter of file path and returns list of data
+        from file.
+        '''
+        with open(one_file, encoding='UTF-8') as input_file:
+            return json.load(input_file)
 
 
 class Modify_Data(BaseModel):
@@ -54,6 +57,7 @@ class Modify_Data(BaseModel):
     f_substr: str
     n_substr: str
     k: str
+
 
     #@working_time_decorator
     def modify_data(self, start_value: list or str, first_substr: str, new_substr: str, key: str) -> list:
