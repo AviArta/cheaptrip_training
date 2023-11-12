@@ -58,7 +58,6 @@ class Modify_Data(BaseModel):
     n_substr: str
     k: str
 
-
     #@working_time_decorator
     def modify_data(self, start_value: list or str, first_substr: str, new_substr: str, key: str) -> list:
         ''' The function creats the modified value-substrings by key. 
@@ -86,7 +85,7 @@ if __name__ == '__main__':
     #search_change_files(args.directory, args.first_data, args.new_data, args.key)
     #search_change_files(args.directory, args.first_data, args.new_data, args.key)
     
-    with ThreadPoolExecutor(max_workers=4) as executor:
+    with ThreadPoolExecutor() as executor:
         future = executor.submit(search_change_files, args.directory, args.first_data, args.new_data, args.key)
         result = future.result()
 # input in console line: python change_files_fp.py --help
